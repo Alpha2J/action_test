@@ -20,10 +20,10 @@ jobs:
 
       - name: Set color
         id: random-color-generator
-        run: echo "SELECTED_COLOR=green" >> $GITHUB_OUTPUT
+        run: echo "DOCKER_IMAGE_TAG_DATE=$(date +'%Y%m%d_%H%M%S')" >> $GITHUB_OUTPUT
 
       - name: Docker build, tag, push
         run: |
-          docker build -t action_test:${{ steps.random-color-generator.outputs.SELECTED_COLOR }}
-          docker tag action_test:${{ steps.random-color-generator.outputs.SELECTED_COLOR }} alpha2j/private_repo:action_test_${{ steps.random-color-generator.outputs.SELECTED_COLOR }}
-          docker push alpha2j/private_repo:action_test_${{ steps.random-color-generator.outputs.SELECTED_COLOR }}
+          docker build -t action_test:${{ steps.random-color-generator.outputs.DOCKER_IMAGE_TAG_DATE }}
+          docker tag action_test:${{ steps.random-color-generator.outputs.DOCKER_IMAGE_TAG_DATE }} alpha2j/private_repo:action_test_${{ steps.random-color-generator.outputs.DOCKER_IMAGE_TAG_DATE }}
+          docker push alpha2j/private_repo:action_test_${{ steps.random-color-generator.outputs.DOCKER_IMAGE_TAG_DATE }}
