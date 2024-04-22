@@ -24,6 +24,6 @@ jobs:
 
       - name: Docker build, tag, push
         run: |
-          docker build -t action_test:${{ steps.random-color-generator.outputs.DOCKER_IMAGE_TAG_DATE }}
+          docker build -t action_test:${{ steps.random-color-generator.outputs.DOCKER_IMAGE_TAG_DATE }} .
           docker tag action_test:${{ steps.random-color-generator.outputs.DOCKER_IMAGE_TAG_DATE }} alpha2j/private_repo:action_test_${{ steps.random-color-generator.outputs.DOCKER_IMAGE_TAG_DATE }}
           docker push alpha2j/private_repo:action_test_${{ steps.random-color-generator.outputs.DOCKER_IMAGE_TAG_DATE }}
