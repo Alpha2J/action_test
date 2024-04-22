@@ -22,9 +22,8 @@ jobs:
         id: random-color-generator
         run: echo "SELECTED_COLOR=green" >> $GITHUB_OUTPUT
 
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: alpha2j/private_repo:action_test1_${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
+      - name: Docker build, tag, push
+        run: |
+          docker build -t action_test:${{ steps.random-color-generator.outputs.SELECTED_COLOR }}
+          docker tag action_test:${{ steps.random-color-generator.outputs.SELECTED_COLOR }} alpha2j/private_repo:action_test_${{ steps.random-color-generator.outputs.SELECTED_COLOR }}
+          docker push alpha2j/private_repo:action_test_${{ steps.random-color-generator.outputs.SELECTED_COLOR }}
