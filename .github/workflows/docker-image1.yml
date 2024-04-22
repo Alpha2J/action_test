@@ -1,0 +1,31 @@
+name: Build docker image, Push to Registry and Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: alpha2j
+          password: as5222165*
+
+      - name: Generate Docker Tag Variable
+        run: echo "::set-env name=DATE::$(date +'%Y%m%d')"
+
+      - name: Build and push Docker image
+        run: |
+          docker build -f ./Dockerfile.test -t alpha-hunter-web:0.0.7 .
+          docker tag alpha-hunter-web:0.0.7 alpha2j/alpha-hunter-web:0.0.7
+          docker push alpha2j/alpha-hunter-web:0.0.7
+  push:
+
+  deploy:
