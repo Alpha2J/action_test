@@ -18,13 +18,13 @@ jobs:
           username: alpha2j
           password: as5222165*
 
-      - name: Generate Docker Tag Variable
-        id: set-docker-tag-date
-        run: echo "$(date+'%Y%m%d')" >> $DOCKER_TAG_DATE
+      - name: Set color
+        id: random-color-generator
+        run: echo "SELECTED_COLOR=green" >> $GITHUB_OUTPUT
 
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: alpha2j/private_repo:action_test1_${{ steps.set-docker-tag-date.outputs.DOCKER_TAG_DATE }}"
+          tags: alpha2j/private_repo:action_test1_${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
